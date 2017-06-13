@@ -94,7 +94,8 @@ gulp.task('templates', function() {
         .pipe(templateCache({
             root: 'views/',
             module: 'blog.templates',
-            standalone: true
+            standalone: true,
+            //templateBody: '$templateCache.put("<%= url %>", "<%= contents %>");'
         }))
         .pipe(gulp.dest('./app/scripts'));
 });
@@ -104,9 +105,7 @@ gulp.task('templates', function() {
 gulp.task('compress', function() {
     gulp.src('./app/index.html')
         .pipe(useref())
-        .pipe(gulpif('*.js', uglify({
-            mangle: false
-        })))
+        .pipe(gulpif('*.js', uglify({ mangle: false })))
         .pipe(gulpif('*.css', minifyCss()))
         .pipe(gulp.dest('./dist'));
 });
@@ -125,7 +124,7 @@ gulp.task('copy', function() {
 gulp.task('uncss', function() {
     gulp.src('./dist/css/style.min.css')
         .pipe(uncss({
-            html: ['./app/index.html', './app/views/post-list.tpl.html', '. /app/views/post-detail.tpl.html']
+            html: ['./app/index.html', './app/views/post-list.tpl.html', './app/views/post-detail.tpl.html', './app/views/post-create.tpl.html']
         }))
         .pipe(gulp.dest('./dist/css'));
 });
