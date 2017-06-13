@@ -15,8 +15,11 @@ var gulp = require('gulp'),
     uncss = require('gulp-uncss'),
     angularFilesort = require('gulp-angular-filesort'),
     templateCache = require('gulp-angular-templatecache'),
-    historyApiFallback = require('connect-history-api-fallback');
-
+    historyApiFallback = require('connect-history-api-fallback'),
+    header = require('gulp-header'),
+    d = new Date(),
+    df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes(),
+    headerComment = '/*Generated on:' + df + '*/';
 // Servidor web de desarrollo
 gulp.task('server', function() {
     connect.server({
