@@ -4,6 +4,9 @@
   "description": "Ejemplo de desarrollo de aplicación web con JavaScript ",
   "dependencies": {
     "angular": "^1.6.4",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular-route": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }
