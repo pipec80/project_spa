@@ -75,7 +75,7 @@ gulp.task('server', function() {
 // Servidor web para probar el entorno de producción
 gulp.task('server-dist', function() {
     connect.server({
-        root: './dist',
+        root: bases.dist,
         hostname: '0.0.0.0',
         port: 8080,
         livereload: true,
@@ -114,7 +114,6 @@ gulp.task('html', function() {
 
 gulp.task('inject', function() {
     var sources = gulp.src(['./app/scripts/**/*.js', './app/stylesheets/**/*.css'], { read: false }, { relative: true });
-
     return gulp.src('index.html', { cwd: './app' })
         .pipe(inject(sources, { ignorePath: '/app' }))
         .pipe(gulp.dest('./app'));
@@ -149,7 +148,23 @@ gulp.task('compress', function() {
         .pipe(useref())
         .pipe(gulpif('*.js', uglify({ mangle: false })))
         .pipe(gulpif('*.css', minifyCss()))
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest(bases.dist));
+});
+
+// Procesamos todos los scripts y los agregamos en un solo archivo, ademas los verificamos para ver si hay incompatibilidades
+gulp.task('scripts', ['clean'], function() {
+    gulp.src(paths.scripts, { cwd: bases.app })
+        //Verificamos que no tengan problemas en la escritura/semantica
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        //Los actualizamos para ser compatibles con la minificacion
+        .pipe(ngAnnotate())
+        //Los comprimimos
+        .pipe(uglify())
+        //Concatenamos en un solo archivo todos los JS
+        .pipe(concat('app.min.js'))
+        //ruta donde guardaremos el archivo
+        .pipe(gulp.dest(bases.dist));
 });
 
 // Copia el contenido de los estáticos e index.html al directorio
@@ -157,9 +172,9 @@ gulp.task('compress', function() {
 gulp.task('copy', function() {
     gulp.src('./app/index.html')
         .pipe(useref())
-        .pipe(gulp.dest('./dist'));
+        .pipe(gulp.dest(bases.dist));
     gulp.src('./app/lib/font-awesome/fonts/**')
-        .pipe(gulp.dest('./dist/fonts'));
+        .pipe(gulp.dest(bases.dist + '/fonts'));
 });
 
 // Elimina el CSS que no es utilizado para reducir el pesodel archivo
@@ -168,7 +183,7 @@ gulp.task('uncss', function() {
         .pipe(uncss({
             html: ['./app/index.html', './app/views/post-list.tpl.html', './app/views/post-detail.tpl.html', './app/views/post-create.tpl.html']
         }))
-        .pipe(gulp.dest('./dist/css'));
+        .pipe(gulp.dest(bases.dist + '/css'));
 });
 
 // Vigila cambios que se produzcan en el código
