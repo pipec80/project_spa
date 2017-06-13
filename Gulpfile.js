@@ -16,10 +16,49 @@ var gulp = require('gulp'),
     angularFilesort = require('gulp-angular-filesort'),
     templateCache = require('gulp-angular-templatecache'),
     historyApiFallback = require('connect-history-api-fallback'),
+    clean = require('gulp-clean'),
+    concat = require('gulp-concat'),
+    ngAnnotate = require('gulp-ng-annotate'),
+    minifyHTML = require('gulp-htmlmin'),
     header = require('gulp-header'),
     d = new Date(),
     df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes(),
     headerComment = '/*Generated on:' + df + '*/';
+
+//En la siguiente variable agregaremos las carpetas de origen/destino
+var bases = {
+    app: 'app/',
+    dist: 'dist/'
+};
+
+//Opciones adicionales para la compatibilizacion de codigo angular
+var opts = {
+    conditionals: true,
+    spare: true
+};
+
+//Ubicaciones de los distintos componentes de nuestra aplicacion
+var paths = {
+    //Incluiremos todos los componentes dentro de app, exceptuando la carpeta lib (administrada por bower)
+    scripts: ['**/*.js', '!lib/**/*.*'],
+    //Direccion de las librerias, estas las copiaremos integramente
+    libs: ['lib/**/*.*'],
+    //Ubicacion de los archivos de estilos que minificaremos
+    styles: ['res/css/**/*.css'],
+    //los archivos html que incluiremos en la minificacion
+    html: ['**/*.html'],
+    //La ruta de las imagenes que minificaremos
+    images: ['res/img/**/*.*'],
+    //Otros extras
+    extras: []
+};
+
+// Limpiar la carpeta DIST
+gulp.task('clean', function() {
+    return gulp.src(bases.dist)
+        .pipe(clean());
+});
+
 // Servidor web de desarrollo
 gulp.task('server', function() {
     connect.server({
