@@ -1,0 +1,10 @@
+{
+    "app": "./app/",
+    "js": ["**/*.js"],
+    "jsApp": ["**/*.js", "!**/*.spec.js"],
+    "jsMin": "js/scripts.min.js",
+    "css": ["**/*.css"],
+    "views": ["**/*.html", "!index.html"],
+    "templatesCache": "templates.js",
+    "dist": "./dist/"
+}

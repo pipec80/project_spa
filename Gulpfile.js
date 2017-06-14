@@ -21,6 +21,7 @@ var gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
     minifyHTML = require('gulp-htmlmin'),
     header = require('gulp-header'),
+    paths = require('./gulp-paths.json'),
     d = new Date(),
     df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes(),
     headerComment = '/*Generated on:' + df + '*/';
@@ -31,27 +32,6 @@ var bases = {
     dist: 'dist/'
 };
 
-//Opciones adicionales para la compatibilizacion de codigo angular
-var opts = {
-    conditionals: true,
-    spare: true
-};
-
-//Ubicaciones de los distintos componentes de nuestra aplicacion
-var paths = {
-    //Incluiremos todos los componentes dentro de app, exceptuando la carpeta lib (administrada por bower)
-    scripts: ['**/*.js', '!lib/**/*.*'],
-    //Direccion de las librerias, estas las copiaremos integramente
-    libs: ['lib/**/*.*'],
-    //Ubicacion de los archivos de estilos que minificaremos
-    styles: ['res/css/**/*.css'],
-    //los archivos html que incluiremos en la minificacion
-    html: ['**/*.html'],
-    //La ruta de las imagenes que minificaremos
-    images: ['res/img/**/*.*'],
-    //Otros extras
-    extras: []
-};
 
 // Limpiar la carpeta DIST
 gulp.task('clean', function() {
@@ -119,7 +99,7 @@ gulp.task('inject', function() {
         .pipe(gulp.dest('./app'));
 });
 
-// Inyecta las librerias que instalemos vía Bower
+// Inyecta las librerias que instalemos vía Bower blocks "bower:xx"
 gulp.task('wiredep', function() {
     gulp.src('./app/index.html')
         .pipe(wiredep({
@@ -184,6 +164,25 @@ gulp.task('uncss', function() {
             html: ['./app/index.html', './app/views/post-list.tpl.html', './app/views/post-detail.tpl.html', './app/views/post-create.tpl.html']
         }))
         .pipe(gulp.dest(bases.dist + '/css'));
+});
+
+//crea la documentacion
+gulp.task('ngdocs', [], function() {
+    var gulpDocs = require('gulp-ngdocs');
+    var options = {
+        scripts: ['http://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js', ],
+        html5Mode: false,
+        //startPage: '/api',
+        title: 'Viddeo Platform API',
+        inlinePartials: true,
+        bestMatch: true,
+        //image: "path/to/my/image.png",
+        //imageLink: "http://my-domain.com",
+        // titleLink: "/api"
+    };
+    return gulp.src('C:/xampp/htdocs/SOLO_TEST/brooadcaster/platform/app/components/*/*.js')
+        .pipe(gulpDocs.process(options))
+        .pipe(gulp.dest('C:/xampp/htdocs/SOLO_TEST/brooadcaster/documentator/docs'));
 });
 
 // Vigila cambios que se produzcan en el código
