@@ -1,0 +1,18 @@
+{
+    "preset": "google",
+    "maximumLineLength": {
+        "value": 160,
+        "allowComments": true,
+        "allowRegex": true
+    },
+    "jsDoc": {
+        "checkAnnotations": {
+            "preset": "jsdoc3",
+            "extra": {
+                "ngdoc": true,
+                "methodOf": true,
+                "restrict": true
+            }
+        }
+    }
+}

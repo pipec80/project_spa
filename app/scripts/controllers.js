@@ -6,7 +6,6 @@
         this.posts = Post.query();
     }
 
-
     function PostDetailCtrl($routeParams, Post, User, Comment) {
         this.post = {};
         this.comments = {};

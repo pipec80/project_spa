@@ -1,10 +1,16 @@
 {
     "app": "./app/",
-    "js": ["**/*.js"],
-    "jsApp": ["**/*.js", "!**/*.spec.js"],
-    "jsMin": "js/scripts.min.js",
-    "css": ["**/*.css"],
-    "views": ["**/*.html", "!index.html"],
+    "lib": "./app/lib",
+    "scripts": "./app/scripts",
+    "dist": "./dist/",
+    "js": ["scripts/**/*.js"],
+    "jsApp": ["scripts/**/*.js", "!scripts/**/*.spec.js"],
+    "jsMin": "js/app.min.js",
+    "css": ["stylesheets/**/*.css"],
+    "jsAppScripts": ["./app/scripts/**/*.js"],
+    "views": ["views/**/*.tpl.html", "!index.html"],
     "templatesCache": "templates.js",
-    "dist": "./dist/"
+    "appIndex": "./app/index.html",
+    "htmls": "/**/*.html",
+    "docs": "./docs"
 }
