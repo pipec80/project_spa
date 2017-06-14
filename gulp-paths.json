@@ -6,7 +6,7 @@
     "js": ["scripts/**/*.js"],
     "jsApp": ["scripts/**/*.js", "!scripts/**/*.spec.js"],
     "jsMin": "js/app.min.js",
-    "css": ["stylesheets/**/*.css"],
+    "css": ["styles/**/*.css"],
     "jsAppScripts": ["./app/scripts/**/*.js"],
     "views": ["views/**/*.tpl.html", "!index.html"],
     "templatesCache": "templates.js",

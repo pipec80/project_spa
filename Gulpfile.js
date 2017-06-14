@@ -92,11 +92,11 @@ gulp.task('jscs', function() {
 
 // Preprocesa archivos Stylus a CSS y recarga los cambios
 gulp.task('css', function() {
-    gulp.src('./app/stylesheets/main.styl')
+    gulp.src('./app/styles/main.styl')
         .pipe(stylus({
             use: nib()
         }))
-        .pipe(gulp.dest('./app/stylesheets'))
+        .pipe(gulp.dest('./app/styles'))
         .pipe(connect.reload());
 });
 
@@ -252,7 +252,7 @@ gulp.task('ngdocs', [], function() {
 gulp.task('watch', function() {
     gulp.watch(['./app/**/*.html'], ['html']);
     gulp.watch(paths.js, { cwd: paths.app }, ['jshint', 'jscs', 'inject']);
-    gulp.watch(['./app/stylesheets/**/*.styl'], ['css', 'inject']);
+    gulp.watch(['./app/styles/**/*.styl'], ['css', 'inject']);
     gulp.watch(paths.css, { cwd: paths.app }, ['inject']);
     gulp.watch(['./app/scripts/**/*.js', './Gulpfile.js'], ['jshint', 'inject']);
     gulp.watch(['./bower.json'], ['wiredep']);
@@ -265,5 +265,5 @@ gulp.task('build', function(done) {
     runSequence('clean', 'compress', 'templates:clean', 'copy', 'uncss', done);
 });
 gulp.task('start', function(done) {
-    runSequence('template:init', 'inject', 'wiredep', done);
+    runSequence('template:app', 'inject', 'wiredep', done);
 });

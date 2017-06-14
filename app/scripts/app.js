@@ -1,28 +1,40 @@
 (function() {
     'use strict';
 
-    angular.module('blog', ['ngRoute', 'blog.controllers', 'blog.templates']);
+    angular.module('AppMain', ['ngRoute', 'Home', 'Contacto'])
+        .config(config)
+        //.config(configure)
+        .run(appRun);
+
+    /* @ngInject */
+    function configure($compileProvider, $logProvider, $httpProvider) {
+        // Replaced by Gulp build task
+        $compileProvider.debugInfoEnabled('@@debugInfoEnabled' !== 'false');
+        $logProvider.debugEnabled('@@debugLogEnabled' !== 'false');
+        $httpProvider.interceptors.push('HttpInterceptor');
+    }
+
+    function appRun() {
+
+    }
 
     function config($locationProvider, $routeProvider) {
+
+        // Permite que las URLs no lleven el caracter
+        // # al inicio (utilizado por defecto por angular)
         $locationProvider.html5Mode(true);
+
         $routeProvider
             .when('/', {
-                templateUrl: 'views/post-list.tpl.html',
-                controller: 'PostListCtrl',
-                controllerAs: 'postlist'
+                templateUrl: 'views/home.tpl.html',
+                controller: 'HomeController',
+                controllerAs: 'homectrl'
             })
-            .when('/post/:postId', {
-                templateUrl: 'views/post-detail.tpl.html',
-                controller: 'PostDetailCtrl',
-                controllerAs: 'postdetail'
+            .when('/contact', {
+                templateUrl: 'views/contacto.tpl.html',
+                controller: 'ContactoController',
+                controllerAs: 'contactoctrl'
             })
-            .when('/new', {
-                templateUrl: 'views/post-create.tpl.html',
-                controller: 'PostCreateCtrl',
-                controllerAs: 'postcreate'
-            });
+            .otherwise({ redirectTo: '/' });
     }
-    angular
-        .module('blog')
-        .config(config);
 })();

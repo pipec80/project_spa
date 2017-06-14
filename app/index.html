@@ -9,29 +9,41 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Coloca favicon.ico y apple-touch-icon(s) en el directorio raíz -->
-    <!-- build:css css/style.min.css -->
+    <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css css/style.min.css -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="styles/main.css">
     <!-- endinject -->
     <!-- endbuild -->
 </head>
 
-<body ng-app="blog">
+<body ng-app="AppMain">
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div class="container-fluid">
-        <div class="row">
-            <aside class="col-sm-3 author-profile">
-                <a ng-href="/new">Crear Entrada</a>
-            </aside>
-            <section class="col-sm-9" ng-view></section>
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="/">Home</a></li>
+                    <li role="presentation"><a href="/about">About</a></li>
+                    <li role="presentation"><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Project name</h3>
         </div>
+        <div ng-view></div>
+        <footer class="footer">
+            <p>&copy; 2016 Company, Inc.</p>
+        </footer>
     </div>
+    <!-- /container -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -59,11 +71,14 @@
     <script src="lib/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <!-- build:js js/plugins.js -->
+    <!-- endbuild -->
+
     <!-- build:js js/app.min.js -->
     <!-- inject:js -->
-    <script src="scripts/templates.js"></script>
-    <script src="scripts/services.js"></script>
-    <script src="scripts/controllers.js"></script>
+    <script src="scripts/HomeController.js"></script>
+    <script src="scripts/ContactoController.js"></script>
     <script src="scripts/app.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
