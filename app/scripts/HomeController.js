@@ -6,17 +6,25 @@
         .controller('HomeController', HomeController);
 
     //HomeController.$inject = ['$scope'];
-
+    /**
+     * 
+     * 
+     */
     function HomeController() {
+        // Variables
         var vm = this;
-
         vm.titulo = 'lallala';
 
-
-        activate();
-
+        // Funciones
+        vm.activate = activate();
         ////////////////
 
-        function activate() {}
+        /**
+         * funcion 
+         * 
+         */
+        function activate() {
+            /* desc */
+        }
     }
 })();

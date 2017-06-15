@@ -8,13 +8,19 @@
     //ContactoController.$inject = ['$scope'];
 
     function ContactoController() {
-        var vm = this;
+        // Variables
+        var self = this;
+        self.titulo = 'contacto';
+        self.formData = {};
 
 
-        activate();
-
+        // Funciones
+        self.submitform = submitform;
         ////////////////
-
-        function activate() {}
+        function submitform() {
+            console.log("submit", self.formData);
+        }
     }
+
+    //return self;
 })();
