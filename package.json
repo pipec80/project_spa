@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pipec80/project_spa#readme",
   "devDependencies": {
+    "angular-animate": "^1.6.4",
     "connect-history-api-fallback": "^1.3.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
