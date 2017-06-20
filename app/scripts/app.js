@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('AppMain', ['ngRoute', 'Home', 'Contacto', 'About'])
+    angular.module('AppMain', ['ngRoute', 'ngStorage', 'Home', 'Contacto', 'About', 'AuthenticationService'])
         .config(routeConfig)
         .config(configure)
         .run(appRun);
@@ -25,7 +25,10 @@
 
         // Permite que las URLs no lleven el caracter
         // # al inicio (utilizado por defecto por angular)
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: true
+        });
 
         $routeProvider
             .when('/', {

@@ -1,1 +1,11 @@
 <p>home</p>
+
+<form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="formLogin.$valid && homectrl.login()">
+    <div class="form-group">
+        <input type="text" placeholder="Email" class="form-control" ng-model="homectrl.formData.email">
+    </div>
+    <div class="form-group">
+        <input type="password" placeholder="Password" class="form-control" ng-model="homectrl.formData.password">
+    </div>
+    <button type="submit" class="btn btn-success">Sign in</button>
+</form>

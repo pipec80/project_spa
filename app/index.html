@@ -38,6 +38,7 @@
     <script src="lib/angular-message-format/angular-message-format.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="lib/ngstorage/ngStorage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -60,7 +61,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="#">{{homectrl.titulo}}</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -68,12 +69,12 @@
                     <li role="presentation"><a href="/about">About</a></li>
                     <li role="presentation"><a href="/contact">Contact</a></li>
                 </ul>
-                <form class="navbar-form navbar-right">
+                <form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="homectrl.login()">
                     <div class="form-group">
-                        <input type="text" placeholder="Email" class="form-control">
+                        <input type="text" placeholder="Email" class="form-control" ng-model="homectrl.formData.email">
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control">
+                        <input type="password" placeholder="Password" class="form-control" ng-model="homectrl.formData.password">
                     </div>
                     <button type="submit" class="btn btn-success">Sign in</button>
                 </form>
@@ -112,6 +113,7 @@
     <script src="scripts/templates.js"></script>
     <script src="scripts/HomeController.js"></script>
     <script src="scripts/ContactoController.js"></script>
+    <script src="scripts/authentication.service.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/AboutController.js"></script>
     <!-- endinject -->
