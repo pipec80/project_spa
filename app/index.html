@@ -38,7 +38,8 @@
     <script src="lib/angular-message-format/angular-message-format.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="lib/ngstorage/ngStorage.js"></script>
+    <script src="lib/angular-jwt/dist/angular-jwt.js"></script>
+    <script src="lib/a0-angular-storage/dist/angular-storage.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -68,6 +69,7 @@
                     <li role="presentation" class="active"><a href="/">Home</a></li>
                     <li role="presentation"><a href="/about">About</a></li>
                     <li role="presentation"><a href="/contact">Contact</a></li>
+                    <li role="presentation"><a href="/dashboard">Contact</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="homectrl.login()">
                     <div class="form-group">
@@ -112,7 +114,9 @@
     <!-- inject:js -->
     <script src="scripts/templates.js"></script>
     <script src="scripts/HomeController.js"></script>
+    <script src="scripts/DashboardController.js"></script>
     <script src="scripts/ContactoController.js"></script>
+    <script src="scripts/config.js"></script>
     <script src="scripts/authentication.service.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/AboutController.js"></script>
