@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    angular.module('AppMain', ['ngRoute', 'angular-storage', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngTouch', 'ngAria', 'angular-jwt',
-            'Home', 'Contacto', 'About', 'AuthenticationService', 'Dashboard', 'Config'
+    angular.module('AppMain', ['ngRoute', 'ngResource', 'angular-storage', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngTouch', 'ngAria', 'angular-jwt',
+            'Home', 'Contacto', 'About', 'AuthServices', 'Dashboard', 'Config'
         ])
         .config(routeConfig)
         .config(configure)
@@ -32,16 +32,13 @@
         $httpProvider.interceptors.push('jwtInterceptor');
     }
 
-    appRun.$inject = ['$rootScope', 'jwtHelper', 'store', '$location', '$route', 'authManager'];
+    appRun.$inject = ['$rootScope', '$location', 'Auth', 'authManager'];
 
-    function appRun($rootScope, jwtHelper, store, $location, $route, authManager) {
-        $rootScope.$on('$locationChangeStart', function(event, next, current) {
-            var user = store.get('currentUser') || null;
-            if (user) {
-                var bool = jwtHelper.isTokenExpired(user.token);
-                if (bool === true) {
-                    $location.path('/');
-                }
+    function appRun($rootScope, $location, Auth, authManager) {
+        $rootScope.$on('$routeChangeStart', function(event, next) {
+            if (!Auth.checkPermissionForView(next.$$route)) {
+                event.preventDefault();
+                $location.path('/about');
             }
         });
         // Check auth on every refresh
@@ -64,32 +61,23 @@
             .when('/', {
                 templateUrl: 'views/home.tpl.html',
                 controller: 'HomeController',
-                controllerAs: 'homectrl',
-                requiresLogin: false,
-                access: { restricted: false }
+                controllerAs: 'homectrl'
             })
             .when('/contact', {
                 templateUrl: 'views/contacto.tpl.html',
                 controller: 'ContactoController',
-                controllerAs: 'contactctrl',
-                requiresLogin: false,
-                access: { restricted: false }
+                controllerAs: 'contactctrl'
             })
             .when('/about', {
                 templateUrl: 'views/about.tpl.html',
                 controller: 'AboutController',
-                controllerAs: 'aboutctrl',
-                requiresLogin: false,
-                access: { restricted: false }
+                controllerAs: 'aboutctrl'
             })
             .when('/dashboard', {
                 templateUrl: 'views/dashboard.tpl.html',
                 controller: 'DashboardController',
                 controllerAs: 'dashboardctrl',
-                data: {
-                    requiresLogin: true
-                },
-                access: { restricted: true }
+                authorization: true
             })
             .otherwise({
                 redirectTo: '/'

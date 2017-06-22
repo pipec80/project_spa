@@ -5,44 +5,34 @@
         .module('Home', [])
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'AuthenticationService', 'APP_NAME'];
+    HomeController.$inject = ['$location', 'Auth', 'APP_NAME'];
     /**
      * 
      * 
      */
-    function HomeController($location, AuthenticationService, APP_NAME) {
+    function HomeController($location, Auth, APP_NAME) {
         // Variables
         var self = this;
         self.titulo = 'titulo app :' + APP_NAME;
         self.formData = {};
-
+        Auth.isLoggedIn();
         // Funciones
         self.login = login;
-        initController();
         ////////////////
 
         /**
          * funcion 
          * 
          */
-
-
-        function initController() {
-            // reset login status
-            AuthenticationService.Logout();
-
-        }
-
         function login() {
             /* desc */
-            AuthenticationService.Login(self.formData.email, self.formData.password, function(result) {
-                if (result === true) {
+            Auth.login(self.formData.email, self.formData.password)
+                .then(function() {
                     $location.path('/dashboard');
-                } else {
+                }, function() {
                     self.error = 'Username or password is incorrect';
                     self.loading = false;
-                }
-            });
+                });
         }
     }
 })();

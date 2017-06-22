@@ -5,15 +5,15 @@
         .module('Dashboard', [])
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['store', 'jwtHelper', '$http'];
+    DashboardController.$inject = ['store', 'jwtHelper', '$http', 'Auth'];
 
-    function DashboardController(store, jwtHelper, $http) {
+    function DashboardController(store, jwtHelper, $http, Auth) {
         var self = this;
         var user = store.get('currentUser');
 
         self.tokenPayload = jwtHelper.decodeToken(user.token);
         self.user = user.user;
-
+        Auth.isLoggedIn();
         //_init();
         self.btnTest = test;
         ////////////////
