@@ -25,7 +25,7 @@
         });
 
         var service = {};
-
+        // Funciones
         service.init = init;
         service.login = login;
         service.logout = logout;
@@ -33,7 +33,7 @@
         service.isLoggedIn = isLoggedIn;
         service.isTokenExpired = isTokenExpired;
         service.checkPermissionForView = checkPermissionForView;
-
+        service.userHasPermission = userHasPermission;
         ////////////////
         return service;
         ////////////////
@@ -112,6 +112,10 @@
             }
 
             //return auth.userHasPermission(view.permissions);
+        }
+
+        function userHasPermission(permissions) {
+
         }
     }
 })();

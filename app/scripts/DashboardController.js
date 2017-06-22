@@ -8,18 +8,14 @@
     DashboardController.$inject = ['store', 'jwtHelper', '$http', 'Auth'];
 
     function DashboardController(store, jwtHelper, $http, Auth) {
+        // Variables
         var self = this;
         var user = store.get('currentUser');
-
         self.tokenPayload = jwtHelper.decodeToken(user.token);
         self.user = user.user;
-        Auth.isLoggedIn();
-        //_init();
+        // Funciones
         self.btnTest = test;
         ////////////////
-
-        function _init() {}
-
         function test() {
             var req = {
                 method: 'POST',

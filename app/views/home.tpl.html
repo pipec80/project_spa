@@ -1,7 +1,7 @@
 <h1>{{homectrl.titulo}}</h1>
 <p>home</p>
 
-<form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="formLogin.$valid && homectrl.login()">
+<form name="formLogin" role="form" novalidate ng-submit="formLogin.$valid && homectrl.login()">
     <div class="form-group">
         <input type="text" placeholder="Email" class="form-control" ng-model="homectrl.formData.email">
     </div>

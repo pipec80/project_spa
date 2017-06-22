@@ -154,11 +154,12 @@ gulp.task('template:app', function() {
     return gulp.src(paths.views, { cwd: paths.app })
         .pipe(templateCache({
             root: 'views/',
-            module: 'blog.templates',
+            module: 'TemplatesCache',
             standalone: true
         }))
         .pipe(gulp.dest(paths.scripts));
 });
+
 gulp.task('templates:build', function() {
     return gulp.src(paths.views, { cwd: paths.app })
         .pipe(plugins.htmlmin({ collapseWhitespace: true }))
@@ -185,8 +186,9 @@ gulp.task('templates:clean', ['templates:concat'], function() {
 });
 
 // Comprime los archivos CSS y JS enlazados en el index.html
-// y los minifica.
-gulp.task('compress', ['wiredep'], function() {
+// y los minifica.   
+//gulp.task('compress', ['wiredep'], function() {
+gulp.task('compress', function() {
     return gulp.src('index.html', { cwd: paths.app })
         .pipe(plugins.useref({ searchPath: ['./', paths.app] }))
         .pipe(plugins.if('*/app.min.js', plugins.replaceTask({
@@ -205,7 +207,7 @@ gulp.task('compress', ['wiredep'], function() {
             mangle: true
         }).on('error', plugins.util.log)))
         .pipe(plugins.if('**/*.css', plugins.cssnano()))
-        .pipe(header(headerComment))
+        //.pipe(header(headerComment))
         .pipe(gulp.dest(paths.dist));
 });
 
@@ -262,8 +264,14 @@ gulp.task('default', ['watch']);
 gulp.task('serverApp', ['server', 'watch']);
 gulp.task('build', function(done) {
     //runSequence('jshint', 'jscs', 'clean', 'compress', 'templates:clean', 'copy:assets', done);
-    runSequence('clean', 'compress', 'templates:clean', 'copy', 'uncss', done);
+    runSequence('clean', 'templates:clean', 'compress', 'copy', 'uncss', function() {
+        console.log('fin build');
+        done();
+    });
 });
-gulp.task('start', function(done) {
-    runSequence('template:app', 'inject', 'wiredep', done);
+gulp.task('prebuild', function(done) {
+    runSequence('template:app', 'inject', 'wiredep', function() {
+        console.log('fin prebuild');
+        done();
+    });
 });
