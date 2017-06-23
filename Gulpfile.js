@@ -53,7 +53,7 @@ gulp.task('server', function() {
 });
 
 // Servidor web para probar el entorno de producción
-gulp.task('server-dist', function() {
+gulp.task('serverDist', function() {
     connect.server({
         root: paths.dist,
         hostname: '0.0.0.0',
