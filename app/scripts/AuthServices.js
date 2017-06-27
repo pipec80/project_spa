@@ -31,6 +31,7 @@
         service.logout = logout;
         service.currentUser = currentUser;
         service.isLoggedIn = isLoggedIn;
+        service.getToken = getToken;
         service.isTokenExpired = isTokenExpired;
         service.checkPermissionForView = checkPermissionForView;
         service.userHasPermission = userHasPermission;
@@ -40,7 +41,7 @@
 
         function init() {
             if (service.isLoggedIn()) {
-                //$rootScope.user = service.currentUser();
+                service.isTokenExpired();
             }
         }
 
@@ -82,16 +83,18 @@
             return user.user;
         }
 
+        function getToken() {
+            var user = store.get('currentUser');
+            return user.token;
+        }
+
         function isTokenExpired() {
             var user = store.get('currentUser');
             var isLogged = jwtHelper.isTokenExpired(user.token);
-            console.log("isTokenExpired", isLogged);
             return isLogged === true;
         }
 
         function isLoggedIn() {
-            //var user = store.get('currentUser');
-            //console.log("isLoggedIn", user);
             return store.get('currentUser') !== null;
         }
 

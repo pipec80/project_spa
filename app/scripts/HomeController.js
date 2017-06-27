@@ -7,22 +7,21 @@
 
     HomeController.$inject = ['$location', 'Auth', 'APP_NAME'];
     /**
-     * 
-     * 
+     *
+     *
      */
     function HomeController($location, Auth, APP_NAME) {
         // Variables
         var self = this;
         self.titulo = 'titulo app :' + APP_NAME;
         self.formData = {};
-        Auth.isLoggedIn();
         // Funciones
         self.login = login;
         ////////////////
 
         /**
-         * funcion 
-         * 
+         * funcion
+         *
          */
         function login() {
             /* desc */

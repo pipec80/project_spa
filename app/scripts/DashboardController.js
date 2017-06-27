@@ -5,9 +5,9 @@
         .module('Dashboard', [])
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['store', 'jwtHelper', '$http', 'Auth'];
+    DashboardController.$inject = ['store', 'jwtHelper', '$http'];
 
-    function DashboardController(store, jwtHelper, $http, Auth) {
+    function DashboardController(store, jwtHelper, $http) {
         // Variables
         var self = this;
         var user = store.get('currentUser');

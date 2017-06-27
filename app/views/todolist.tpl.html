@@ -1,0 +1,18 @@
+<p>{{todolistctrl.titulo}}</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>status</th>
+            <th>created</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in todolistctrl.lsItems | orderBy : 'created'">
+            <td>{{ item.name }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.created }}</td>
+        </tr>
+    </tbody>
+</table>

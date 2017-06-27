@@ -2,27 +2,32 @@
     'use strict';
 
     angular.module('AppMain', ['ngRoute', 'ngResource', 'angular-storage', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngTouch', 'ngAria', 'angular-jwt',
-            'Home', 'Contacto', 'About', 'AuthServices', 'Dashboard', 'Config'
+            'Config', 'Home', 'Contacto', 'About', 'AuthServices', 'Dashboard', 'TodoList', 'DataService'
         ])
         .config(routeConfig)
         .config(configure)
         .run(appRun);
 
     /* @ngInject */
-    configure.$inject = ['$compileProvider', '$logProvider', '$httpProvider', 'jwtOptionsProvider'];
+    configure.$inject = ['$compileProvider', '$logProvider', '$httpProvider', 'jwtOptionsProvider', 'storeProvider', '$resourceProvider'];
 
-    function configure($compileProvider, $logProvider, $httpProvider, jwtOptionsProvider) {
+    function configure($compileProvider, $logProvider, $httpProvider, jwtOptionsProvider, storeProvider, $resourceProvider) {
+        // Don't strip trailing slashes from calculated URLs
+        $resourceProvider.defaults.stripTrailingSlashes = false;
         // Replaced by Gulp build task
         $compileProvider.debugInfoEnabled('@@debugInfoEnabled' !== 'false');
-        $logProvider.debugEnabled('@@debugLogEnabled' !== 'false');
-
+        $logProvider.debugEnabled('@@debugLogEnabled' !== 'false'); //
+        // angular-storage settings
+        //storeProvider.setStore('sessionStorage');
+        storeProvider.setCaching(false); //cambiar en  angular-storage.js variable ln 166
+        //
         jwtOptionsProvider.config({
             whiteListedDomains: ['localhost'],
             authPrefix: 'JWT ',
             unauthenticatedRedirectPath: '/about',
             tokenGetter: ['options', 'store', function(options, store) {
                 // Skip authentication for any requests ending in .html
-                if (options && options.url.substr(options.url.length - 5) == '.html') {
+                if (options && options.url.substr(options.url.length - 5) === '.html') {
                     return null;
                 }
                 var user = store.get('currentUser');
@@ -35,6 +40,7 @@
     appRun.$inject = ['$rootScope', '$location', 'Auth', 'authManager'];
 
     function appRun($rootScope, $location, Auth, authManager) {
+        Auth.init();
         $rootScope.$on('$routeChangeStart', function(event, next) {
             if (!Auth.checkPermissionForView(next.$$route)) {
                 event.preventDefault();
@@ -78,6 +84,19 @@
                 controller: 'DashboardController',
                 controllerAs: 'dashboardctrl',
                 authorization: true
+            })
+            .when('/todolist', {
+                templateUrl: 'views/todolist.tpl.html',
+                controller: 'TodoListController',
+                controllerAs: 'todolistctrl',
+                resolve: {
+                    dataInitial: function(dataService) {
+                        return dataService.serviceTodoList.query().$promise.then(function(data) {
+                            return data;
+                        });
+                    }
+                },
+                //authorization: true
             })
             .otherwise({
                 redirectTo: '/'

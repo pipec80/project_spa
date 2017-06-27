@@ -186,7 +186,7 @@ gulp.task('templates:clean', ['templates:concat'], function() {
 });
 
 // Comprime los archivos CSS y JS enlazados en el index.html
-// y los minifica.   
+// y los minifica.
 //gulp.task('compress', ['wiredep'], function() {
 gulp.task('compress', function() {
     return gulp.src('index.html', { cwd: paths.app })
