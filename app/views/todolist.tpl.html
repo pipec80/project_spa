@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in todolistctrl.lsItems | orderBy : 'created'">
+        <tr ng-repeat="item in todolistctrl.lsItems track by item._id | orderBy : 'created'">
             <td>{{ item.name }}</td>
             <td>{{ item.status }}</td>
             <td>{{ item.created }}</td>
