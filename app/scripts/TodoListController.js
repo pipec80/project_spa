@@ -16,19 +16,18 @@
         self.lsItems = dataInitial;
         // Funciones
         self.createItem = _create;
-        self.readItems = _read;
+        self.readItem = _read;
         self.updateItem = _update;
         self.deleteItem = _delete;
 
         ////////////////
         function _init() {
-            console.log('dataInitial', dataInitial);
-
+            dataService.serviceTodoList.query().$promise.then(function(data) {
+                self.lsItems = data;
+            });
         }
 
         function _create(item) {
-
-
             apiservice.save(item).$promise
                 .then(function(response) {
                     console.log(response);

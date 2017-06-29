@@ -36,7 +36,7 @@
         });
         $httpProvider.interceptors.push('jwtInterceptor');
     }
-
+    /* @ngInject */
     appRun.$inject = ['$rootScope', '$location', 'Auth', 'authManager'];
 
     function appRun($rootScope, $location, Auth, authManager) {
@@ -52,6 +52,7 @@
         // Redirect the user to the website configured above when API returns a 401.
         //authManager.redirectWhenUnauthenticated();
     }
+    /* @ngInject */
     routeConfig.$inject = ['$locationProvider', '$routeProvider'];
 
     function routeConfig($locationProvider, $routeProvider) {
