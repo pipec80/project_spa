@@ -3,7 +3,8 @@
 
     angular.module('Config', [])
         .constant('APP_NAME', 'App Tareas')
-        // .constant('moment', moment()),
+        //.constant('moment', moment)
+        .constant('_', window._) //
         .constant('APP_VERSION', '1.0')
         .constant('VERSION_TAG', /*VERSION_TAG_START*/ new Date().getTime() /*VERSION_TAG_END*/ )
         .constant('DEBUG_MODE', true)
