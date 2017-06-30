@@ -27,7 +27,6 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
     <script src="lib/angular-resource/angular-resource.js"></script>
     <script src="lib/angular-touch/angular-touch.js"></script>
     <script src="lib/angular-sanitize/angular-sanitize.js"></script>
@@ -41,6 +40,8 @@
     <script src="lib/angular-jwt/dist/angular-jwt.js"></script>
     <script src="lib/a0-angular-storage/dist/angular-storage.js"></script>
     <script src="lib/underscore/underscore.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/angular-ui-router/release/stateEvents.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -67,10 +68,10 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="active"><a href="/">Home</a></li>
-                    <li role="presentation"><a href="/about">About</a></li>
-                    <li role="presentation"><a href="/contact">Contact</a></li>
-                    <li role="presentation"><a href="/dashboard">Contact</a></li>
+                    <li role="presentation" class="active"><a ui-sref="home">Home</a></li>
+                    <li role="presentation"><a ui-sref="about">About</a></li>
+                    <li role="presentation"><a ui-sref="contact">Contact</a></li>
+                    <li role="presentation"><a ui-sref="dashboard">Contact</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="homectrl.login()">
                     <div class="form-group">
@@ -87,7 +88,7 @@
     </nav>
 
     <div class="container">
-        <div ng-view></div>
+        <ui-view></ui-view>
         <footer class="footer">
             <p>&copy; 2016 Company, Inc.</p>
         </footer>

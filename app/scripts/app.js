@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('AppMain', ['ngRoute', 'ngResource', 'angular-storage', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngTouch', 'ngAria', 'angular-jwt',
+    angular.module('AppMain', ['ui.router', 'ui.router.state.events', 'ngResource', 'angular-storage', 'ngAnimate', 'ngCookies', 'ngSanitize', 'ngTouch', 'ngAria', 'angular-jwt',
             'Config', 'Home', 'Contacto', 'About', 'AuthServices', 'Dashboard', 'TodoList', 'DataService'
         ])
         .config(routeConfig)
@@ -37,56 +37,72 @@
         $httpProvider.interceptors.push('jwtInterceptor');
     }
     /* @ngInject */
-    appRun.$inject = ['$rootScope', '$location', 'Auth', 'authManager'];
+    appRun.$inject = ['$rootScope', '$state', '$location', 'Auth', 'authManager'];
 
-    function appRun($rootScope, $location, Auth, authManager) {
+    function appRun($rootScope, $state, $location, Auth, authManager) {
         Auth.init();
-        $rootScope.$on('$routeChangeStart', function(event, next) {
-            if (!Auth.checkPermissionForView(next.$$route)) {
-                event.preventDefault();
-                $location.path('/about');
-            }
-        });
         // Check auth on every refresh
         //authManager.checkAuthOnRefresh();
         // Redirect the user to the website configured above when API returns a 401.
         //authManager.redirectWhenUnauthenticated();
+        $rootScope.$on('$stateChangeStart', function() {
+            //console.log('$stateChangeStart');stateChangeSuccess
+        });
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+            if (typeof toState.data === 'object') {
+                if (!Auth.checkPermissionForView(toState.data)) {
+                    event.preventDefault();
+                    $state.go(toState.data.redirectTo);
+                }
+            }
+            //console.log('$stateChangeSuccess');
+        });
+        $rootScope.$on('$stateChangeError', function() {
+            //console.log('$stateChangeError');
+        });
     }
-    /* @ngInject */
-    routeConfig.$inject = ['$locationProvider', '$routeProvider'];
+    routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-    function routeConfig($locationProvider, $routeProvider) {
-
+    function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         // Permite que las URLs no lleven el caracter
         // # al inicio (utilizado por defecto por angular)
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: true
         });
+        $urlRouterProvider.otherwise('/home');
 
-        $routeProvider
-            .when('/', {
+        $stateProvider
+            .state('home', {
+                url: '/home',
                 templateUrl: 'views/home.tpl.html',
                 controller: 'HomeController',
                 controllerAs: 'homectrl'
             })
-            .when('/contact', {
+            .state('contact', {
+                url: '/contact',
                 templateUrl: 'views/contacto.tpl.html',
                 controller: 'ContactoController',
                 controllerAs: 'contactctrl'
             })
-            .when('/about', {
+            .state('about', {
+                url: '/about',
                 templateUrl: 'views/about.tpl.html',
                 controller: 'AboutController',
                 controllerAs: 'aboutctrl'
             })
-            .when('/dashboard', {
+            .state('dashboard', {
+                url: '/dashboard',
                 templateUrl: 'views/dashboard.tpl.html',
                 controller: 'DashboardController',
                 controllerAs: 'dashboardctrl',
-                authorization: true
+                data: {
+                    authorization: true,
+                    redirectTo: 'contact'
+                }
             })
-            .when('/todolist', {
+            .state('todolist', {
+                url: '/todolist',
                 templateUrl: 'views/todolist.tpl.html',
                 controller: 'TodoListController',
                 controllerAs: 'todolistctrl',
@@ -98,9 +114,7 @@
                     }
                 },
                 //authorization: true
-            })
-            .otherwise({
-                redirectTo: '/'
             });
     }
+
 })();

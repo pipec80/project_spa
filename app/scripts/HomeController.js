@@ -5,12 +5,12 @@
         .module('Home', [])
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$location', 'Auth', 'APP_NAME'];
+    HomeController.$inject = ['$location', 'Auth', 'APP_NAME', '_'];
     /**
      *
      *
      */
-    function HomeController($location, Auth, APP_NAME) {
+    function HomeController($location, Auth, APP_NAME, _) {
         // Variables
         var self = this;
         self.titulo = 'titulo app :' + APP_NAME;

@@ -98,23 +98,26 @@
             return store.get('currentUser') !== null;
         }
 
-        function checkPermissionForView(view) {
-            if (!view.authorization) {
-                return true;
-            }
-            return userHasPermissionForView(view);
-        }
-
-        function userHasPermissionForView(view) {
-            if (!service.isLoggedIn()) {
+        function checkPermissionForView(data) {
+            if (service.isLoggedIn() !== null) {
                 return false;
             }
-
-            if (!view.permissions || !view.permissions.length) {
+            if (data.authorization) {
                 return true;
             }
+            return userHasPermissionForView(data);
+        }
 
-            //return auth.userHasPermission(view.permissions);
+        function userHasPermissionForView(data) {
+            if (service.isLoggedIn() === null) {
+                return false;
+            }
+            /*
+                        if (!data.permissions || !data.permissions.length) {
+                            return true;
+                        }
+            */
+            //return auth.userHasPermission(data.permissions);
         }
 
         function userHasPermission(permissions) {
