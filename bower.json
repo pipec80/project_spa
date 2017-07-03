@@ -19,6 +19,7 @@
     "angular-jwt": "^0.1.9",
     "a0-angular-storage": "^0.0.15",
     "underscore": "^1.8.3",
-    "angular-ui-router": "^1.0.5"
+    "angular-ui-router": "^1.0.5",
+    "bootstrap-daterangepicker": "^2.1.25"
   }
 }

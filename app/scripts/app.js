@@ -45,8 +45,8 @@
         //authManager.checkAuthOnRefresh();
         // Redirect the user to the website configured above when API returns a 401.
         //authManager.redirectWhenUnauthenticated();
-        $rootScope.$on('$stateChangeStart', function() {
-            //console.log('$stateChangeStart');stateChangeSuccess
+        $rootScope.$on('$stateChangeSuccess', function() {
+            //console.log('$stateChangeSuccess');
         });
         $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
             if (typeof toState.data === 'object') {
@@ -55,7 +55,6 @@
                     $state.go(toState.data.redirectTo);
                 }
             }
-            //console.log('$stateChangeSuccess');
         });
         $rootScope.$on('$stateChangeError', function() {
             //console.log('$stateChangeError');
@@ -113,7 +112,10 @@
                         });
                     }
                 },
-                //authorization: true
+                data: {
+                    authorization: true,
+                    redirectTo: 'contact'
+                }
             });
     }
 

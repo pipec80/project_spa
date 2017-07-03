@@ -34,6 +34,7 @@
         service.getToken = getToken;
         service.isTokenExpired = isTokenExpired;
         service.checkPermissionForView = checkPermissionForView;
+        service.userHasPermissionForView = userHasPermissionForView;
         service.userHasPermission = userHasPermission;
         ////////////////
         return service;
@@ -99,25 +100,24 @@
         }
 
         function checkPermissionForView(data) {
-            if (service.isLoggedIn() !== null) {
-                return false;
-            }
             if (data.authorization) {
-                return true;
+                if (!service.isLoggedIn()) {
+                    return false;
+                }
+                //return true;
+                return service.userHasPermissionForView(data);
             }
-            return userHasPermissionForView(data);
         }
 
         function userHasPermissionForView(data) {
-            if (service.isLoggedIn() === null) {
-                return false;
-            }
+            return true;
+
             /*
                         if (!data.permissions || !data.permissions.length) {
                             return true;
                         }
             */
-            //return auth.userHasPermission(data.permissions);
+            //return service.userHasPermission(data.permissions);
         }
 
         function userHasPermission(permissions) {

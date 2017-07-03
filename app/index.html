@@ -13,6 +13,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="lib/bootstrap-daterangepicker/daterangepicker.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -41,7 +42,7 @@
     <script src="lib/a0-angular-storage/dist/angular-storage.js"></script>
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="lib/angular-ui-router/release/stateEvents.js"></script>
+    <script src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -68,10 +69,11 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="active"><a ui-sref="home">Home</a></li>
+                    <li role="presentation"><a ui-sref="home">Home</a></li>
                     <li role="presentation"><a ui-sref="about">About</a></li>
                     <li role="presentation"><a ui-sref="contact">Contact</a></li>
-                    <li role="presentation"><a ui-sref="dashboard">Contact</a></li>
+                    <li role="presentation"><a ui-sref="dashboard">Dashboard</a></li>
+                    <li role="presentation"><a ui-sref="todolist">Todolist</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" name="formLogin" role="form" novalidate ng-submit="homectrl.login()">
                     <div class="form-group">

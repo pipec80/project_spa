@@ -19,9 +19,9 @@
         self.readItem = _read;
         self.updateItem = _update;
         self.deleteItem = _delete;
-
+        self.getAllItems = getAllItems;
         ////////////////
-        function _init() {
+        function getAllItems() {
             dataService.serviceTodoList.query().$promise.then(function(data) {
                 self.lsItems = data;
             });
