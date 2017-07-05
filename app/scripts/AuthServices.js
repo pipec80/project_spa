@@ -65,8 +65,6 @@
                                 token: response.token
                             };
                             store.set('currentUser', currentUser);
-                            // add jwt token to auth header for all requests made by the $http service
-                            //$http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                             // execute callback with true to indicate successful login
                             resolve();
                         } else {

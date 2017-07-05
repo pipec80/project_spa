@@ -60,6 +60,7 @@
             //console.log('$stateChangeError');
         });
     }
+    /* @ngInject */
     routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
     function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
