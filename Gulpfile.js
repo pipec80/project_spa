@@ -139,7 +139,7 @@ gulp.task('template:init', function() {
         .pipe(plugins.htmlmin({ collapseWhitespace: true }))
         .pipe(templateCache({
             root: 'views/',
-            module: 'blog.templates',
+            module: 'TemplatesCache',
             standalone: true,
             moduleSystem: 'IIFE',
             //templateBody: '$templateCache.put("<%= url %>", "<%= contents %>");'
@@ -165,7 +165,7 @@ gulp.task('templates:build', function() {
         .pipe(plugins.htmlmin({ collapseWhitespace: true }))
         .pipe(plugins.angularTemplatecache({
             root: 'views/',
-            module: 'blog.templates',
+            module: 'TemplatesCache',
             standalone: true,
             moduleSystem: 'IIFE',
         }))

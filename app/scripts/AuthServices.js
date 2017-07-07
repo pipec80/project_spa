@@ -5,9 +5,9 @@
         .module('AuthServices', [])
         .factory('Auth', Service);
 
-    Service.$inject = ['$resource', '$http', 'store', '$q', 'APIURL', 'jwtHelper'];
+    Service.$inject = ['$resource', '$http', 'store', '$q', 'APIURL', 'jwtHelper', '$location'];
 
-    function Service($resource, $http, store, $q, APIURL, jwtHelper) {
+    function Service($resource, $http, store, $q, APIURL, jwtHelper, $location) {
 
         /**
          *  User profile resource
@@ -42,7 +42,10 @@
 
         function init() {
             if (service.isLoggedIn()) {
-                service.isTokenExpired();
+                if (service.isTokenExpired()) {
+                    $location.path('/');
+                    //return false;
+                }
             }
         }
 
