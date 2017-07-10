@@ -221,11 +221,11 @@ gulp.task('copy', function() {
         .pipe(gulp.dest(paths.dist + '/fonts'));
 });
 
-// Elimina el CSS que no es utilizado para reducir el pesodel archivo
+// Elimina el CSS que no es utilizado para reducir el peso del archivo
 gulp.task('uncss', function() {
     gulp.src('css/style.min.css', { cwd: paths.dist })
         .pipe(uncss({
-            html: ['./app/index.html', './app/views/post-list.tpl.html', './app/views/post-detail.tpl.html', './app/views/post-create.tpl.html']
+            html: ['./app/index.html', './app/views/*.html']
         }))
         .pipe(gulp.dest(paths.dist + '/css'));
 });
