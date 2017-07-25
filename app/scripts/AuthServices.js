@@ -102,8 +102,11 @@
 
         function checkPermissionForView(data) {
             if (data.authorization) {
-                if (!service.isLoggedIn()) {
-                    return false;
+                if (service.isLoggedIn()) {
+                    if (service.isTokenExpired()) {
+                        //return false;
+                        $location.path('/');
+                    }
                 }
                 //return true;
                 return service.userHasPermissionForView(data);

@@ -17,7 +17,7 @@
         // Replaced by Gulp build task
         $compileProvider.debugInfoEnabled('@@debugInfoEnabled' !== 'false');
         $logProvider.debugEnabled('@@debugLogEnabled' !== 'false'); //
-        // angular-storage settings
+        // angular-storage settingsg
         //storeProvider.setStore('sessionStorage');
         storeProvider.setCaching(false); //cambiar en  angular-storage.js variable ln 166
         //
@@ -40,7 +40,7 @@
     appRun.$inject = ['$rootScope', '$state', '$location', 'Auth', 'authManager'];
 
     function appRun($rootScope, $state, $location, Auth, authManager) {
-        Auth.init();
+
         // Check auth on every refresh
         //authManager.checkAuthOnRefresh();
         // Redirect the user to the website configured above when API returns a 401.

@@ -65,12 +65,12 @@
     <script src="lib/a0-angular-storage/dist/angular-storage.js"></script>
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="lib/angular-ui-router/release/stateEvents.js"></script>
     <script src="lib/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js js/plugins.js -->
+    <script src="lib/angular-ui-router/release/stateEvents.min.js"></script>
     <!-- endbuild -->
 
 
@@ -140,15 +140,14 @@
     </script>
     <!-- build:js js/app.min.js -->
     <!-- inject:js -->
-    <script src="scripts/TodoListController.js"></script>
-    <script src="scripts/templates.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/AuthServices.js"></script>
     <script src="scripts/services.js"></script>
+    <script src="scripts/TodoListController.js"></script>
     <script src="scripts/HomeController.js"></script>
     <script src="scripts/DashboardController.js"></script>
     <script src="scripts/ContactoController.js"></script>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/AuthServices.js"></script>
-    <script src="scripts/app.js"></script>
     <script src="scripts/AboutController.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
