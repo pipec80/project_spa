@@ -104,8 +104,8 @@
             if (data.authorization) {
                 if (service.isLoggedIn()) {
                     if (service.isTokenExpired()) {
-                        //return false;
-                        $location.path('/');
+                        return false;
+                        //$location.path('/');
                     }
                 }
                 //return true;
